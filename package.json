@@ -29,10 +29,14 @@
     "checklist": "babel-node scripts/checklist.js",
     "test": "eslint src && jest --coverage && flow-check --skip-check",
     "jest:watch": "jest --watch --coverage",
-    "publish": "babel src --out-dir dist --ignore *.test.js && npm publish",
+    "build": "babel src --out-dir dist --ignore *.test.js",
+    "publish": "npm run build && npm publish",
     "version:patch": "npm version patch",
     "version:minor": "npm version minor",
     "version:major": "npm version major"
+  },
+  "bin": {
+    "checklist": "node dist/bin.js"
   },
   "engine": {
     "node": ">=6.9.1"
