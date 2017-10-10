@@ -26,7 +26,7 @@
   "homepage": "https://github.com/cajacko/cj-checklist#readme",
   "scripts": {
     "start": "babel src --watch --out-dir dist --ignore __tests__",
-    "checklist": "babel-node scripts/checklist.js",
+    "checklist": "node dist/bin.js",
     "test": "eslint src && jest --coverage && flow-check --skip-check",
     "jest:watch": "jest --watch --coverage",
     "build": "rimraf dist && babel src --out-dir dist --ignore __tests__",
