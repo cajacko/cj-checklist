@@ -1,8 +1,9 @@
-import { readJsonSync, writeJsonSync } from 'fs-extra';
+import { readJsonSync, writeJsonSync, pathExistsSync } from 'fs-extra';
 import { join } from 'path';
 import inquirer from 'inquirer';
+import root from 'app-root-path';
 
-const checklistFile = join(__dirname, '../../checklist.json');
+const checklistFile = join(root.toString(), 'checklist.json');
 
 function getChecklist() {
   return readJsonSync(checklistFile);
@@ -142,6 +143,10 @@ function remove(callback) {
 }
 
 export default function () {
+  if (!pathExistsSync(checklistFile)) {
+    setChecklist({ checklist: [] });
+  }
+
   const actions = ['Run', 'Add'];
 
   if (getChecklist().checklist.length) {

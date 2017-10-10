@@ -26,6 +26,7 @@
   "homepage": "https://github.com/cajacko/cj-checklist#readme",
   "scripts": {
     "start": "babel src --watch --out-dir dist --ignore *.test.js",
+    "checklist": "babel-node scripts/checklist.js",
     "test": "eslint src && jest --coverage && flow-check --skip-check",
     "jest:watch": "jest --watch --coverage",
     "publish": "babel src --out-dir dist --ignore *.test.js && npm publish",
@@ -41,6 +42,7 @@
     "url": "https://github.com/cajacko/cj-checklist/issues"
   },
   "dependencies": {
+    "app-root-path": "2.0.1",
     "fs-extra": "4.0.2",
     "inquirer": "3.3.0"
   },
