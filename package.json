@@ -1,0 +1,65 @@
+{
+  "name": "cj-checklist",
+  "version": "0.1.0",
+  "description": "Manual checklist to run on precommit etc",
+  "author": {
+    "name": "Charlie Jackson",
+    "email": "contact@charliejackson.com",
+    "url": "https://charliejackson.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "checklist",
+    "test",
+    "testing",
+    "quality",
+    "command line",
+    "cli",
+    "node",
+    "javascript",
+    "npm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cajacko/cj-checklist.git"
+  },
+  "homepage": "https://github.com/cajacko/cj-checklist#readme",
+  "scripts": {
+    "start": "babel src --watch --out-dir dist --ignore *.test.js",
+    "test": "eslint src && jest --coverage && flow-check --skip-check",
+    "jest:watch": "jest --watch --coverage",
+    "publish": "babel src --out-dir dist --ignore *.test.js && npm publish",
+    "version:patch": "npm version patch",
+    "version:minor": "npm version minor",
+    "version:major": "npm version major"
+  },
+  "engine": {
+    "node": ">=6.9.1"
+  },
+  "bugs": {
+    "email": "contact@charliejackson.com",
+    "url": "https://github.com/cajacko/cj-checklist/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "3.19.0",
+    "eslint-config-airbnb": "14.1.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "6.10.3",
+    "eslint-plugin-flowtype": "2.31.0",
+    "eslint-plugin-jest": "21.2.0",
+    "babel-eslint": "7.2.2",
+    "eslint-import-resolver-babel-module": "3.0.0",
+    "babel-cli": "6.24.1",
+    "babel-plugin-module-resolver": "2.7.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-stage-2": "6.24.1",
+    "babel-jest": "21.2.0",
+    "babel-plugin-transform-flow-strip-types": "6.22.0",
+    "flow-check": "0.2.2",
+    "jest": "21.2.1"
+  },
+  "main": "dist/index.js"
+}
