@@ -1,3 +1,4 @@
+/* eslint max-lines: 0 require-jsdoc: 0 */
 import { readJsonSync, writeJsonSync, pathExistsSync } from 'fs-extra';
 import { join } from 'path';
 import inquirer from 'inquirer';
@@ -23,7 +24,7 @@ function removeFromChecklist(title) {
   const checklist = getChecklist();
   const items = [];
 
-  checklist.checklist.forEach((item, i) => {
+  checklist.checklist.forEach((item) => {
     if (item.title === title) {
       return;
     }
@@ -66,9 +67,10 @@ function add(callback) {
  * Run the checklist, asking all the questions, and then throwing an error if
  * some are declined. Also logs the declined questions.
  *
+ * @param {Function} runDoneCallback Run a callback function when done
  * @return {Promise} Promise with success/failure
  */
-export function run() {
+export function run(runDoneCallback) {
   let questions = getChecklist().checklist;
   const length = questions.length;
 
@@ -109,7 +111,15 @@ export function run() {
 
       error += '\n\n';
 
-      throw new Error(error);
+      if (typeof runDoneCallback === 'function') {
+        runDoneCallback(error);
+      } else {
+        throw new Error(error);
+      }
+    }
+
+    if (typeof runDoneCallback === 'function') {
+      runDoneCallback();
     }
   });
 }
@@ -142,7 +152,7 @@ function remove(callback) {
     });
 }
 
-export default function () {
+function init(runDoneCallback) {
   if (!pathExistsSync(checklistFile)) {
     setChecklist({ checklist: [] });
   }
@@ -165,13 +175,13 @@ export default function () {
     .then(({ action }) => {
       switch (action) {
         case 'Add':
-          return add(init);
+          return add(() => init(runDoneCallback));
 
         case 'Run':
-          return run();
+          return run(runDoneCallback);
 
         case 'Remove':
-          return remove(init);
+          return remove(() => init(runDoneCallback));
 
         default:
           throw new Error('Unexpected action given');
@@ -182,4 +192,8 @@ export default function () {
         throw new Error(e || 'Undefined error');
       }),
     );
+}
+
+export default function (runDoneCallback) {
+  init(runDoneCallback);
 }
