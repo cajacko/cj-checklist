@@ -186,6 +186,10 @@ function init(runDoneCallback) {
     })
     .catch(e =>
       setTimeout(() => {
+        if (e && e.error) {
+          throw new Error(e.error);
+        }
+
         throw new Error(e || 'Undefined error');
       }),
     );
