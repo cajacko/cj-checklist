@@ -111,16 +111,13 @@ export function run(runDoneCallback) {
 
       error += '\n\n';
 
-      if (typeof runDoneCallback === 'function') {
-        runDoneCallback(error);
-      } else {
-        throw new Error(error);
-      }
+      return Promise.reject({
+        error,
+        questions: failed,
+      });
     }
 
-    if (typeof runDoneCallback === 'function') {
-      runDoneCallback();
-    }
+    return Promise.resolve();
   });
 }
 
